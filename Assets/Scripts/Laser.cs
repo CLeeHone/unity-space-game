@@ -5,17 +5,19 @@ using UnityEngine;
 public class Laser : MonoBehaviour
 {
     private float _speed = 8f;
+    private const float UpperLimit = 8f;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
+        CheckVisibility();
     }
 
     void Move()
@@ -24,5 +26,14 @@ public class Laser : MonoBehaviour
 
         // Vector3 direction = new Vector3(transform.position.x, transform.position.z);
         transform.Translate(direction * _speed * Time.deltaTime);
+    }
+
+    void CheckVisibility()
+    {
+        // if laser position on y is greater than 8, remove the object
+        if (transform.position.y > UpperLimit)
+        {
+           Destroy(this.gameObject);
+        }
     }
 }

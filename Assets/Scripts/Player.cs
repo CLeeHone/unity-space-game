@@ -52,11 +52,14 @@ public class Player : MonoBehaviour
 
     void FireLaser()
     {
+        float offset = 0.8f;
+        Vector3 newPosition = new Vector3(transform.position.x, transform.position.y + offset, transform.position.z);
+        
         // If spacebar is pressed, spawn new Laser
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // Quaternion.identity means default rotation
-            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+            Instantiate(_laserPrefab, newPosition, Quaternion.identity);
         }
     }
 }
