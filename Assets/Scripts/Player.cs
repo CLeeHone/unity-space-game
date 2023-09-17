@@ -9,10 +9,12 @@ public class Player : MonoBehaviour
     public const float LeftLimit = -11.3f;
     public const float UpperLimit = 0f;
     public const float LowerLimit = -3.8f;
-
+    
     // Serializes the data to allow a private variable to be visible and overridable in the Unity editor
     [SerializeField] 
     private int _speed = 5;
+    [SerializeField]
+    private GameObject _laserPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
+        FireLaser();
     }
 
     void CalculateMovement()
@@ -44,6 +47,16 @@ public class Player : MonoBehaviour
         } else if (transform.position.x <= LeftLimit)
         {
             transform.position = new Vector3(RightLimit, transform.position.y, transform.position.z);
+        }
+    }
+
+    void FireLaser()
+    {
+        // If spacebar is pressed, spawn new Laser
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // Quaternion.identity means default rotation
+            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
         }
     }
 }
