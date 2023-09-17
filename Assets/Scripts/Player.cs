@@ -9,7 +9,9 @@ public class Player : MonoBehaviour
     public const float LeftLimit = -11.3f;
     public const float UpperLimit = 0f;
     public const float LowerLimit = -3.8f;
-    
+    public const float FireRate = 0.15f;
+    private float Cooldown = -1f;
+
     // Serializes the data to allow a private variable to be visible and overridable in the Unity editor
     [SerializeField] 
     private int _speed = 5;
@@ -26,7 +28,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
-        FireLaser();
+
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > Cooldown)
+        {
+            FireLaser();
+        }
     }
 
     void CalculateMovement()
@@ -55,11 +61,9 @@ public class Player : MonoBehaviour
         float offset = 0.8f;
         Vector3 newPosition = new Vector3(transform.position.x, transform.position.y + offset, transform.position.z);
         
-        // If spacebar is pressed, spawn new Laser
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // Quaternion.identity means default rotation
-            Instantiate(_laserPrefab, newPosition, Quaternion.identity);
-        }
+        // Quaternion.identity means default rotation
+        Instantiate(_laserPrefab, newPosition, Quaternion.identity);
+        Cooldown = Time.time + FireRate;
     }
+
 }
