@@ -19,9 +19,10 @@ public class Player : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
+        float forwardInput = 0f;
+        Vector3 direction = new Vector3(horizontalInput, verticalInput, forwardInput);
 
         // Time.deltaTime incorporates real time. Distributed property Vector3(1, 0, 0) * 5 * real time --> equals new Vector3(5, 0, 0)
-        transform.Translate(Vector3.right * horizontalInput * _speed * Time.deltaTime);
-        transform.Translate(Vector3.up * verticalInput * _speed * Time.deltaTime);
+        transform.Translate(direction * _speed * Time.deltaTime);
     }
 }
