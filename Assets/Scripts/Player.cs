@@ -45,21 +45,21 @@ public class Player : MonoBehaviour
         // Time.deltaTime incorporates real time. Distributed property Vector3(1, 0, 0) * 5 * real time --> equals new Vector3(5, 0, 0)
         transform.Translate(direction * _speed * Time.deltaTime);
 
-        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, LowerLimit, UpperLimit), transform.position.z);
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, LowerLimit, UpperLimit), 0);
 
         if (transform.position.x >= RightLimit)
         {
-            transform.position = new Vector3(LeftLimit, transform.position.y, transform.position.z);
+            transform.position = new Vector3(LeftLimit, transform.position.y, 0);
         } else if (transform.position.x <= LeftLimit)
         {
-            transform.position = new Vector3(RightLimit, transform.position.y, transform.position.z);
+            transform.position = new Vector3(RightLimit, transform.position.y, 0);
         }
     }
 
     void FireLaser()
     {
         float offset = 0.8f;
-        Vector3 newPosition = new Vector3(transform.position.x, transform.position.y + offset, transform.position.z);
+        Vector3 newPosition = new Vector3(transform.position.x, transform.position.y + offset, 0);
         
         // Quaternion.identity means default rotation
         Instantiate(_laserPrefab, newPosition, Quaternion.identity);

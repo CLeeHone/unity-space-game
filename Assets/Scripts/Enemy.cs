@@ -29,8 +29,22 @@ public class Enemy : MonoBehaviour
 
         if (transform.position.y < LowerLimit)
         {
-            transform.position = new Vector3(Random.Range(LeftLimit, RightLimit), UpperLimit, transform.position.z);
+            transform.position = new Vector3(Random.Range(LeftLimit, RightLimit), UpperLimit, 0);
         }
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            Destroy(this.gameObject);
+        }
+        
+        if (other.tag == "Laser")
+        {
+            Destroy(GameObject.FindWithTag("Laser"));
+            Destroy(this.gameObject);
+        }
     }
 }
