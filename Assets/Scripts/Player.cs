@@ -78,4 +78,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    public int getLives()
+    {
+        return this._lives;
+    }
+
 }
