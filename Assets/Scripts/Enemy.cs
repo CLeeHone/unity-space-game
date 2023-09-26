@@ -40,6 +40,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.tag == PLAYER)
         {
+            GameObject enemy = this.gameObject;
             Destroy(this.gameObject);
             Player player = other.transform.GetComponent<Player>();
 

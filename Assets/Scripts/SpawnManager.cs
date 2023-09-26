@@ -9,6 +9,7 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyPrefab;
     [SerializeField]
     private GameObject _enemyContainer;
+    private const string PLAYER = "Player";
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckPlayerStatus();
+        //CheckPlayerStatus();
     }
 
     IEnumerator SpawnRoutine()
@@ -38,15 +39,14 @@ public class SpawnManager : MonoBehaviour
 
     }
 
-    void CheckPlayerStatus()
+/*    void CheckPlayerStatus()
     {
-        Player player = GameObject.FindWithTag("Player").transform.GetComponent<Player>();
+        Player player = GameObject.FindWithTag(PLAYER).GetComponent<Player>();
         //bool playerIsAlive = player.getLives() > 0;
 
         if (player == null)
         {
             Debug.Log("Game Over");
-
         }
-    }
+    }*/
 }
