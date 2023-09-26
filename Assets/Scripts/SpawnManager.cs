@@ -7,6 +7,8 @@ public class SpawnManager : MonoBehaviour
     private IEnumerator _coroutine;
     [SerializeField]
     private GameObject _enemyPrefab;
+    [SerializeField]
+    private GameObject _enemyContainer;
 
     // Start is called before the first frame update
     void Start()
@@ -24,9 +26,9 @@ public class SpawnManager : MonoBehaviour
     {
         while (true)
         {
-            Enemy enemy = gameObject.AddComponent(typeof(Enemy)) as Enemy;
             Vector3 newPosition = new Vector3(Random.Range(Enemy.LeftLimit, Enemy.RightLimit), Enemy.UpperLimit, 0);
-            Instantiate(_enemyPrefab, newPosition, Quaternion.identity);
+            GameObject enemy = Instantiate(_enemyPrefab, newPosition, Quaternion.identity);
+            enemy.transform.parent = _enemyContainer.transform;
 
             yield return new WaitForSeconds(5);
         }
