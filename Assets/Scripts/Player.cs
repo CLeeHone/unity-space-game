@@ -10,7 +10,9 @@ public class Player : MonoBehaviour
     public const float UpperLimit = 0f;
     public const float LowerLimit = -3.8f;
     public const float FireRate = 0.15f;
-    private float Cooldown = -1f;
+    private float _cooldown = -1f;
+    [SerializeField]
+    private int _lives = 3;
 
     // Serializes the data to allow a private variable to be visible and overridable in the Unity editor
     [SerializeField] 
@@ -29,7 +31,7 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
 
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > Cooldown)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _cooldown)
         {
             FireLaser();
         }
@@ -63,7 +65,17 @@ public class Player : MonoBehaviour
         
         // Quaternion.identity means default rotation
         Instantiate(_laserPrefab, newPosition, Quaternion.identity);
-        Cooldown = Time.time + FireRate;
+        _cooldown = Time.time + FireRate;
+    }
+
+    public void Damage()
+    {
+        _lives--;
+
+        if (_lives == 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
 }
