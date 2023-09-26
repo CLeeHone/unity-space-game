@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     public const float LeftLimit = -9.48f;
     public const float UpperLimit = 8f;
     public const float LowerLimit = -5.5f;
+    private const string PLAYER = "Player";
+    private const string LASER = "Laser";
 
     // Start is called before the first frame update
     void Start()
@@ -36,14 +38,14 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == PLAYER)
         {
             Destroy(this.gameObject);
         }
         
-        if (other.tag == "Laser")
+        if (other.tag == LASER)
         {
-            Destroy(GameObject.FindWithTag("Laser"));
+            Destroy(GameObject.FindWithTag(LASER));
             Destroy(this.gameObject);
         }
     }
