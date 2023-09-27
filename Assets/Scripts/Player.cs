@@ -14,12 +14,16 @@ public class Player : MonoBehaviour
     private float _cooldown = -1f;
     [SerializeField]
     private int _lives = 3;
+    [SerializeField]
+    private bool tripleShotActive = false;
 
     // Serializes the data to allow a private variable to be visible and overridable in the Unity editor
     [SerializeField] 
     private int _speed = 5;
     [SerializeField]
     private GameObject _laserPrefab;
+    [SerializeField]
+    private GameObject _tripleShotPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -61,11 +65,22 @@ public class Player : MonoBehaviour
 
     void FireLaser()
     {
-        float offset = 0.8f;
-        Vector3 newPosition = new Vector3(transform.position.x, transform.position.y + offset, 0);
-        
-        // Quaternion.identity means default rotation
-        Instantiate(_laserPrefab, newPosition, Quaternion.identity);
+
+        if (!tripleShotActive)
+        {
+            float offset = 0.8f;
+            Vector3 newPosition = new Vector3(transform.position.x, transform.position.y + offset, 0);
+
+            // Quaternion.identity means default rotation
+            Instantiate(_laserPrefab, newPosition, Quaternion.identity);
+        } else
+        {
+            float xOffset = 0.54315f;
+            float yOffset = 0.28653f;
+            Vector3 newPosition = new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, 0);
+            
+            Instantiate(_tripleShotPrefab, newPosition, Quaternion.identity);
+        }
         _cooldown = Time.time + FireRate;
     }
 
