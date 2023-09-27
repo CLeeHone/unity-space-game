@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public const float LeftLimit = -11.3f;
     public const float UpperLimit = 0f;
     public const float LowerLimit = -3.8f;
+    [SerializeField]
     public const float FireRate = 0.15f;
     private float _cooldown = -1f;
     [SerializeField]
