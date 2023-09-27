@@ -10,43 +10,49 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyContainer;
     private const string PLAYER = "Player";
+    private Player player;
+    bool playerIsAlive = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(StatusRoutine());
         StartCoroutine(SpawnRoutine());
     }
 
     // Update is called once per frame
     void Update()
     {
-        //CheckPlayerStatus();
+
     }
 
     IEnumerator SpawnRoutine()
     {
-        Player player = GameObject.FindWithTag("Player").transform.GetComponent<Player>();
-        bool playerIsAlive = player.getLives() > 0;
-
         while (playerIsAlive)
         {
             Vector3 newPosition = new Vector3(Random.Range(Enemy.LeftLimit, Enemy.RightLimit), Enemy.UpperLimit, 0);
             GameObject enemy = Instantiate(_enemyPrefab, newPosition, Quaternion.identity);
             enemy.transform.parent = _enemyContainer.transform;
+            playerIsAlive = player.getLives() > 0;
 
             yield return new WaitForSeconds(5);
         }
 
     }
 
-/*    void CheckPlayerStatus()
+    IEnumerator StatusRoutine()
     {
-        Player player = GameObject.FindWithTag(PLAYER).GetComponent<Player>();
-        //bool playerIsAlive = player.getLives() > 0;
+        player = GameObject.FindWithTag("Player").transform.GetComponent<Player>();
+        while (player != null)
+        {
+            yield return new WaitForSeconds(1);
+        }
 
         if (player == null)
         {
-            Debug.Log("Game Over");
+            playerIsAlive = false;
         }
-    }*/
+        
+    }
+
 }
