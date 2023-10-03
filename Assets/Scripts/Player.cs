@@ -99,4 +99,21 @@ public class Player : MonoBehaviour
         return this._lives;
     }
 
+    public void ActivateTripleShot()
+    {
+        this.tripleShotActive = true;
+        StartCoroutine(TripleShotPowerDownRoutine());
+    }
+
+    public void DeactivateTripleShot()
+    {
+        this.tripleShotActive = false;
+    }
+
+    IEnumerator TripleShotPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5);
+        DeactivateTripleShot();
+    }
+
 }
